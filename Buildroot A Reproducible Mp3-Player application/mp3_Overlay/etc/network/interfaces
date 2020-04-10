@@ -1,6 +1,38 @@
+auto lo
+iface lo inet loopback
+
+#uncomment all commented lines if you wanna ssh over ethernet cable
 auto eth0
-iface eth0 inet static
+#iface eth0 inet static
+#wait-delay 15
+#hostname $(hostname)
+#address 192.168.1.1
+#netmask 255.255.255.0
+#pre-up /etc/network/nfs_check
+
+## ssh over wifi is Enabled
+auto wlan0
+iface wlan0 inet static
 wait-delay 15
 hostname $(hostname)
-address 192.168.1.6
+address 192.168.1.1
 netmask 255.255.255.0
+pre-up wpa_supplicant -B -Dwext -iwlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+post-down killall -q wpa_supplicant
+
+iface default inet dhcp
+
+
+cat > output/target/etc/wpa_supplicant/wpa_supplicant.conf
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=US
+
+
+network={
+        ssid="TEdata1BB3E5"
+        psk="18925242"
+        key_mgmt=WPA-PSK
+}
+
+
