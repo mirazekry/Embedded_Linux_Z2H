@@ -10,12 +10,13 @@ if [ -e ${TARGET_DIR}/etc/inittab ]; then
 tty1::respawn:/sbin/getty -L  tty1 0 vt100 # HDMI console' ${TARGET_DIR}/etc/inittab
 fi
 
-#############################################################################################################################################
+
+
 ## PermitRootLogin for ssh
 sed -i '/#PermitRootLogin prohibit-password/c\PermitRootLogin yes' output/target/etc/ssh/sshd_config 
 
-## change prompt to raspi> with red color
-sed -i "/export PS1=/c\                 export PS1='\\\e[0;31mraspi> \\\e[m '"  output/target/etc/profile
+## change prompt to mp3-shell 
+sed -i "/export PS1=/c\                 export PS1='\\\e[0;31mmp3-player> \\\e[m '"  output/target/etc/profile
 
 ## aliasing ls -lah
 aliasDir="root/mp3_player"
